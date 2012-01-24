@@ -1,0 +1,47 @@
+#
+# system.prop for GT540
+#
+
+rild.libpath=/system/lib/libril-qc-1.so
+rild.libargs=-d /dev/smd0
+persist.rild.nitz_plmn=
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+DEVICE_PROVISIONED=1
+ril.subscription.types=NV,RUIM
+ro.telephony.ril_class=LGEQualcommRIL
+ro.telephony.call_ring.multiple=false
+ro.telephony.ril.v3=signalstrength,skipbrokendatacall,facilitylock,datacall,icccardstatus,1
+#mobiledata.interfaces=pdp0,eth0,gprs,ppp0
+mobiledata.interfaces=rmnet0,rmnet1,rmnet2
+ro.telephony.default_network=0
+persist.cust.tel.eons=1
+dalvik.vm.execution-mode=int:jit
+debug.sf.hw=1
+ro.config.disable_hw_accel=true
+
+#ro.sf.compbypass.enable=1	
+#com.qc.hardware=true	
+#com.qc.hdmi_out=false
+
+# larger vm heaps
+dalvik.vm.heapsize=24m
+
+# modified camera blob wants this
+ro.product.camera=swift
+
+ro.bt.bdaddr_path=/data/misc/bd_addr
+
+persist.sys.usb.config=mass_storage,adb
+persist.service.adb.enable=1
+ro.opengles.version=131072
+#ro.ril.baseband=AMSS53404003
+
+wifi.interface=wlan0
+wifi.supplicant_scan_interval=45
