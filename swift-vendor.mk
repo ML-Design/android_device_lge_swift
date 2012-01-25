@@ -4,14 +4,16 @@ PRODUCT_COPY_FILES += device/lge/swift/files/init.swift.rc:root/init.swift.rc
 PRODUCT_COPY_FILES += device/lge/swift/files/init.swift.rc:root/init.swift.usb.rc
 PRODUCT_COPY_FILES += device/lge/swift/files/ueventd.swift.rc:root/ueventd.swift.rc
 
-# CHARGERMODE
+CHARGERMODE := false
+
+ifdef CHARGERMODE
+
 PRODUCT_COPY_FILES += \
-    device/lge/swift/chargemode/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
+	device/lge/swift/chargemode/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
     device/lge/swift/chargemode/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
     device/lge/swift/chargemode/chargerimages/battery_ani_03.rle:root/chargerimages/battery_ani_03.rle \
     device/lge/swift/chargemode/chargerimages/battery_ani_04.rle:root/chargerimages/battery_ani_04.rle \
     device/lge/swift/chargemode/chargerimages/battery_ani_05.rle:root/chargerimages/battery_ani_05.rle \
-    device/lge/swift/chargemode/chargerimages/battery_bg_bk.rle:root/chargerimages/battery_bg_bk.rle \
     device/lge/swift/chargemode/chargerimages/battery_bg.rle:root/chargerimages/battery_bg.rle \
     device/lge/swift/chargemode/chargerimages/battery_charging_01.rle:root/chargerimages/battery_charging_01.rle \
     device/lge/swift/chargemode/chargerimages/battery_charging_02.rle:root/chargerimages/battery_charging_02.rle \
@@ -22,8 +24,10 @@ PRODUCT_COPY_FILES += \
     device/lge/swift/chargemode/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_01.rle \
     device/lge/swift/chargemode/chargerimages/battery_wait_ani_02.rle:root/chargerimages/battery_wait_ani_02.rle \
     device/lge/swift/chargemode/chargerimages/black_bg.rle:root/chargerimages/black_bg.rle \
-    device/lge/swift/chargemode/chargerlogo:root/sbin/chargerlogo
+	device/lge/swift/chargemode/chargerlogo:root/sbin/chargerlogo
 
+endif	
+	
 # etc
 PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/etc/hosts:system/etc/hosts \
@@ -176,7 +180,7 @@ PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/apps/RootExplorer.apk:system/app/RootExplorer.apk \
 	device/lge/swift/prebuilt/apps/Homeselector.apk:system/app/Homeselector.apk \
 
-SWIFT_WITH_GOOGLE := true
+SWIFT_WITH_GOOGLE := false
 
 ifdef SWIFT_WITH_GOOGLE
 
