@@ -22,6 +22,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_FINGERPRINT=lge/swift/swift:2.3.3/GRI40/LG-GT540-V20E:user/release-keys
 
 # Release name and versioning
-PRODUCT_RELEASE_NAME := Optimus-Swift
+PRODUCT_RELEASE_NAME := IceCreamSwift
 PRODUCT_VERSION_DEVICE_SPECIFIC :=
 -include vendor/cyanogen/products/common_versions.mk
