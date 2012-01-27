@@ -21,7 +21,7 @@
      for different hardware and product builds. -->
 <resources>
 
-	<bool name="config_usesLegacyUsbDeviceManager">true</bool>
+    <!--	<bool name="config_usesLegacyUsbDeviceManager">true</bool>  -->
 	
     <!-- Display low battery warning when battery level dips to this value -->
     <integer name="config_lowBatteryWarningLevel">10</integer>
