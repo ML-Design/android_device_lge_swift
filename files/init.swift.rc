@@ -1,22 +1,8 @@
-on boot-pause
-    exec sbin/chargerlogo
+#on boot-pause
+#    exec sbin/chargerlogo
 
-import init.swift.usb.rc
+#import init.swift.usb.rc
 
-on early-init
-    export EXTERNAL_STORAGE /mnt/sdcard
-    mkdir /mnt/sdcard 0000 system system
-    # for backwards compatibility
-    symlink /mnt/sdcard /sdcard
-
-on post-fs-data
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-
-    setprop vold.post_fs_data_done 1
-    
 on boot
 
 	mkdir /data/xt9 0777 system system
@@ -124,12 +110,8 @@ on boot
 # WIFI
 	chown system misc /data/misc/wifi
 	chmod 0771 /data/misc/wifi
-	
 	mkdir /data/misc/wifi/sockets 0770 wifi wifi
-#	mkdir /data/misc/wifi/sockets 0777 root root
-	
-	mkdir /data/disk 0777 system system
-
+		mkdir /data/disk 0777 system system
 
 # DHCP
 	mkdir /data/misc/dhcp 0777 system system
@@ -141,6 +123,8 @@ on boot
 
 service qmuxd /system/bin/qmuxd
 	class main
+	user radio
+   	group radio
 
 on property:init.svc.hcid=running
 	write /sys/devices/virtual/bluetooth/hci0/idle_timeout 7000
@@ -171,12 +155,12 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wi
         disabled
         oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -B wlan0
+service dhcpcd_wlan0 /system/bin/dhcpcd -BKA wlan0
 		class main
         disabled
         oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
+service iprenew_wlan0 /system/bin/dhcpcd -n wlan0
 	class main
 	disabled
 	oneshot
@@ -197,9 +181,9 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --baudrate 3000000
 	 
 service akmd2 /system/bin/akmd2
 	class main
-    class main
     user compass
-    group compass misc input
+	group system
+#    group compass misc input
     
 on property:dev.bootcomplete=1
     exec /system/bin/hwaddrs
