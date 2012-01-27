@@ -21,18 +21,11 @@
      for different hardware and product builds. -->
 <resources>
 
-    <!-- Flag indicating whether the surface flinger has limited
-         alpha compositing functionality in hardware.  If set, the window
-         manager will disable alpha trasformation in animations where not
-         strictly needed. -->
-    <bool name="config_sf_limitedAlpha">false</bool>
+	<bool name="config_usesLegacyUsbDeviceManager">true</bool>
+	
+    <!-- Display low battery warning when battery level dips to this value -->
+    <integer name="config_lowBatteryWarningLevel">10</integer>
 
-	<bool name="config_batterySdCardAccessibility">true</bool>
-
-    <!-- Use the new fancy screen off animation.
-         Turn off to use new Gingerbread animation -->
-    <bool name="config_animateScreenLights">false</bool>
-    
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
     <!-- This string array should be overridden by the device to present a list of network

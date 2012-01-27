@@ -58,8 +58,8 @@ TARGET_PROVIDES_LIBRIL := true
 TARGET_SPECIFIC_HEADER_PATH := device/lge/swift/include
 
 # USB
-BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+#BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun%d/file
 
 # KERNEL
 TARGET_PREBUILT_KERNEL := device/lge/swift/kernel
@@ -76,8 +76,8 @@ BOARD_USES_QCOM_LEGACY := true
 # WIFI
 BOARD_WLAN_DEVICE := bcm4325
 BOARD_WIRELESS_CHIP := bcm4325
-WIFI_DRIVER_FW_STA_PATH         := "/system/etc/wl/rtecdc.bin"
-WIFI_DRIVER_FW_AP_PATH          := "/system/etc/wl/rtecdc-apsta.bin"
+WIFI_DRIVER_FW_PATH_STA         := "/system/etc/wl/rtecdc.bin"
+WIFI_DRIVER_FW_PATH_AP          := "/system/etc/wl/rtecdc-apsta.bin"
 WIFI_DRIVER_MODULE_NAME         := "wireless"
 WIFI_DRIVER_MODULE_PATH         := "/system/lib/modules/wireless.ko"
 WIFI_DRIVER_MODULE_ARG          := "iface_name=wlan0 firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt"
@@ -85,6 +85,7 @@ WPA_SUPPLICANT_VERSION          := VER_0_5_X
 WIFI_DRIVER_HAS_LGE_SOFTAP      := true
 #BOARD_WEXT_NO_COMBO_SCAN        := true
 BOARD_WPA_SUPPLICANT_DRIVER     := WEXT
+TARGET_CUSTOM_WIFI := device/lge/swift/prebuilt/wifi.c
 
 # CHARGERMODE
 BOARD_GLOBAL_CFLAGS += -DCHARGERMODE_CMDLINE_NAME='"lge.reboot"' -DCHARGERMODE_CMDLINE_VALUE='"pwroff"'
@@ -105,5 +106,7 @@ WITH_JIT := true
 COMMON_GLOBAL_CFLAGS += -DTARGET_MSM7x27 -DNO_RGBX_8888
 COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE -DMISSING_GRALLOC_BUFFERS
 COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_PIXEL_FORMAT_YV12
-COMMON_GLOBAL_CFLAGS += -DBOARD_GL_OES_EGL_IMG_EXTERNAL_HACK 
+#COMMON_GLOBAL_CFLAGS += -DBOARD_GL_OES_EGL_IMG_EXTERNAL_HACK
 COMMON_GLOBAL_CFLAGS += -D_INTERNAL_BINDER_PARCEL_ -DUSE_LGE_ALS_DUMMY
+
+BOARD_EGL_GRALLOC_USAGE_FILTER := true
