@@ -28,6 +28,10 @@
 
 /dev/msm_camera/*	0660	system		system
 /dev/msm_camera		0660	system		system 
+/dev/msm_camera		0660	system		system 
+/dev/msm_camera/config0	0660	system		system 
+/dev/msm_camera/control0	0660	system		system 
+/dev/msm_camera/frame0	0660	system		system 
 
 
 #Begin changhyun3.kim 101227 froyo to gingerbread update

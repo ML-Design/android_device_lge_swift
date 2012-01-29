@@ -48,6 +48,7 @@ PRODUCT_PACKAGES += \
 	libOmxCore \
 	libmm-omxcore \
 	libstagefrighthw \
+	libopencorehw \
 	audio.a2dp.default \
 	audio.a2dp.swift \
 	audio_policy.swift \
@@ -57,10 +58,11 @@ PRODUCT_PACKAGES += \
 	hcitool \
 
 PRODUCT_PACKAGES += \
-        LiveWallpapers \
-        LiveWallpapersPicker \
-        VisualizationWallpapers \
         librs_jni \
+#        LiveWallpapers \
+#        LiveWallpapersPicker \
+#        VisualizationWallpapers \
+
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.com.google.locationfeatures=1 \

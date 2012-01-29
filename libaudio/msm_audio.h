@@ -1,7 +1,7 @@
 /* include/linux/msm_audio.h
  *
  * Copyright (C) 2008 Google, Inc.
- * Copyright (c) 2009, Code Aurora Forum. All rights reserved.
+ * Copyright (c) 2009-2010, Code Aurora Forum. All rights reserved.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -14,12 +14,17 @@
  *
  */
 
+/*===========================================================================
+when       who       what, where, why                        comment tag
+--------   ----    -------------------------------------    ----------------------------------
+2009-11-8  chenjun  add audio loopbcak                        ZTE_Audio-LB_CJ_1
+===========================================================================*/
+
 #ifndef __LINUX_MSM_AUDIO_H
 #define __LINUX_MSM_AUDIO_H
 
 #include <linux/types.h>
 #include <linux/ioctl.h>
-#include <asm/sizes.h>
 
 /* PCM Audio */
 
@@ -83,6 +88,14 @@
 #define AUDIO_SET_AGC        _IOW(AUDIO_IOCTL_MAGIC, 90, unsigned)
 #define AUDIO_SET_NS         _IOW(AUDIO_IOCTL_MAGIC, 91, unsigned)
 #define AUDIO_SET_TX_IIR     _IOW(AUDIO_IOCTL_MAGIC, 92, unsigned)
+#define AUDIO_GET_BUF_CFG    _IOW(AUDIO_IOCTL_MAGIC, 93, \
+					struct msm_audio_buf_cfg)
+#define AUDIO_SET_BUF_CFG    _IOW(AUDIO_IOCTL_MAGIC, 94, \
+					struct msm_audio_buf_cfg)
+#define AUDIO_SET_ACDB_BLK _IOW(AUDIO_IOCTL_MAGIC, 95,  \
+					struct msm_acdb_cmd_device)
+#define AUDIO_GET_ACDB_BLK _IOW(AUDIO_IOCTL_MAGIC, 96,  \
+					struct msm_acdb_cmd_device)
 
 #define	AUDIO_MAX_COMMON_IOCTL_NUM	100
 
@@ -127,6 +140,7 @@
 #define AGC_ENABLE		0x0001
 #define NS_ENABLE		0x0002
 #define TX_IIR_ENABLE		0x0004
+#define FLUENCE_ENABLE		0x0008
 
 #define VOC_REC_UPLINK		0x00
 #define VOC_REC_DOWNLINK	0x01
@@ -146,6 +160,11 @@ struct msm_audio_config {
 struct msm_audio_stream_config {
 	uint32_t buffer_size;
 	uint32_t buffer_count;
+};
+
+struct msm_audio_buf_cfg{
+	uint32_t meta_info_enable;
+	uint32_t frames_per_buf;
 };
 
 struct msm_audio_stats {
@@ -227,6 +246,11 @@ struct msm_snd_endpoint {
 
 #define SND_AVC_CTL _IOW(SND_IOCTL_MAGIC, 6, unsigned *)
 #define SND_AGC_CTL _IOW(SND_IOCTL_MAGIC, 7, unsigned *)
+/* ZTE_Audio_CJ_100302, chenjun, 2010-3-2, start */
+/* ZTE_Audio-LB_CJ_1 chenjun 2009-10-28 start */
+#define SND_SET_AUDIO_LOOPBACK _IOW(SND_IOCTL_MAGIC, 8, unsigned *)
+/* ZTE_Audio-LB_CJ_1 chenjun 2009-10-28 end */
+/* ZTE_Audio_CJ_100302, chenjun, 2010-3-2, end */
 
 struct msm_audio_pcm_config {
 	uint32_t pcm_feedback;	/* 0 - disable > 0 - enable */
@@ -326,360 +350,16 @@ struct msm_audio_eq_stream_config {
 	struct msm_audio_eq_band	eq_bands[AUDIO_MAX_EQ_BANDS];
 } __attribute__ ((packed));
 
-#if defined (CONFIG_MACH_MSM7X27_ALOHAV)
-//#if defined(CONFIG_LGE_AUDIO_HIDDEN_MENU_TEST_PATCH)
-/* LGE_CHANGES_S [kiwone@lge.com] 2010-01-08, [VS740] for testmode and so on */
-struct msm_snd_set_loopback_mode_param {
-	int32_t mode;
-	int get_param;
+struct msm_acdb_cmd_device {
+	uint32_t     command_id;
+	uint32_t     device_id;
+	uint32_t     network_id;
+	uint32_t     sample_rate_id;      /* Actual sample rate value */
+	uint32_t     interface_id;        /* See interface id's above */
+	uint32_t     algorithm_block_id;  /* See enumerations above */
+	uint32_t     total_bytes;         /* Length in bytes used by buffer */
+	uint32_t     *phys_buf;           /* Physical Address of data */
 };
 
-#define SND_SET_LOOPBACK_MODE 				_IOWR(SND_IOCTL_MAGIC, 12, struct msm_snd_set_loopback_mode_param *)
-#else
-struct msm_snd_set_loopback_mode_param {
-	int32_t mode;
-	int get_param;
-};
-/* LGE_CHANGE_S, [junyoub.an] , 2010-02-19, For audio cal tool.*/
-
-typedef enum {
-  VOC_CODEC_SPEAKER_MEDIA					= 0,  	/* BT Intercom                      */	
-  VOC_CODEC_STEREO_HEADSET_LOOPBACK		    = 1, 	 	/* On Chip Codec Channel 2          */
-  VOC_CODEC_STEREO_HEADSET					= 2,  	/* On Chip Codec Channels 1 and 2   */
-  VOC_CODEC_STEREO_HEADSET_MEDIA			= 3,  	/* On Chip Codec Aux. Channel       */
-  VOC_CODEC_STEREO_HEADSET_WITHOUT_MIC		= 4,  	/* Headset without mic                   */
-  VOC_CODEC_ON_CHIP_0						= 5,		/* On Chip Codec Channel 1 */
-  VOC_CODEC_SPEAKER_PHONE					= 6,  	/* External BT codec                */
-  VOC_CODEC_SPEAKER_HEADSET				    = 7,  	/* BT local audio path              */
-  VOC_CODEC_VOICE_RECORDER					= 8,
-  VOC_CODEC_FM_RADIO_HEADSET_MEDIA			= 9,     /* FM_RADIO HEADSET*/
-  VOC_CODEC_FM_RADIO_SPEAKER_MEDIA			= 10,  /* FM_RADIO SPEAKER*/ 
-  VOC_CODEC_OFF_BOARD			    		= 11,
-  VOC_CODEC_BT_HEADSET					    = 12, 	/* Aux. Codec                       */
-  VOC_CODEC_A2DP_BT_HEADSET					= 13, 	/* Stereo DAC                       */
-  VOC_CODEC_TTY_ON_CHIP_1						= 14,	/* TTY On Chip Codec Channel 2		*/
-  VOC_CODEC_TTY_VCO 							= 15,	/* Voice Carry-Over TTY 			*/
-  VOC_CODEC_TTY_HCO 							= 16,	/* Hearing Carry-Over TTY			*/
-  VOC_CODEC_TTY_OFF_BOARD						= 17,	/* TTY Aux. Codec					*/
-  VOC_CODEC_RX_EXT_SDAC_TX_INTERNAL 			= 18,	/* External Stereo DAC and Tx Internal */
-  VOC_CODEC_IN_STEREO_SADC_OUT_MONO_HANDSET 	= 19,	/* Stereo line in Mono out	  */
-  VOC_CODEC_IN_STEREO_SADC_OUT_STEREO_HEADSET	= 20,	/* Stereo line in STEREO out  */
-  VOC_CODEC_TX_INT_SADC_RX_EXT_AUXPCM			= 21,	/* Stereo line in, AUX_PCM out*/ 
-  VOC_CODEC_EXT_STEREO_SADC_OUT_MONO_HANDSET	= 22,	/* Stereo line in Mono out	 */
-  VOC_CODEC_EXT_STEREO_SADC_OUT_STEREO_HEADSET	= 23,	/* Stereo line in STEREO out */
-  VOC_CODEC_USB 								= 24,	/* USB off-board codec				*/
-  VOC_CODEC_STEREO_USB							= 25,	/* Stereo USB off-board codec		*/
-  VOC_CODEC_ON_CHIP_0_DUAL_MIC					= 26,	/* On Chip dual mic stereo channels */
-  VOC_CODEC_MAX 								= 27,
-  VOC_CODEC_NONE								= 28,		  /* Place Holder					  */
-  VOC_CODEC_32BIT_DUMMY                         = 0x7FFFFFFF
-} voc_codec_type;
-
-#if 0
-typedef enum 
-{ 
-	EC_MODE,				/* 0 */
-	NS_ENABLE,
-	TX_GAIN,
-	DTMF_TX_GAIN,
-	CODEC_TX_GAIN,
-	CODEC_RX_GAIN,
-	CODEC_ST_GAIN,
-	TX_FILTER_TAP0,
-	TX_FILTER_TAP1,
-	TX_FILTER_TAP2,
-	TX_FILTER_TAP3,		/* 10 */
-	TX_FILTER_TAP4,
-	TX_FILTER_TAP5,
-	TX_FILTER_TAP6,
-	RX_FILTER_TAP0,
-	RX_FILTER_TAP1,
-	RX_FILTER_TAP2,
-	RX_FILTER_TAP3,
-	RX_FILTER_TAP4,
-	RX_FILTER_TAP5,
-	RX_FILTER_TAP6,		/* 20 */
-#ifdef FEATURE_AUDIO_AGC	
-	RX_AGC_STATIC_GAIN,
-	RX_AGC_AIG,
-	RX_AGC_EXP_THRES,
-	RX_AGC_EXP_SLOPE,
-	RX_AGC_COMPR_THRES,
-	RX_AGC_COMPR_SLOPE,
-	RX_AVC_SENSITIVITY,
-	RX_AVC_HEADROOM,
-	TX_AGC_STATIC_GAIN,
-	TX_AGC_AIG,			/* 30 */
-	TX_AGC_EXP_THRES,
-	TX_AGC_EXP_SLOPE,
-	TX_AGC_COMPR_THRES,
-	TX_AGC_COMPR_SLOPE,
-#ifdef FEATURE_LGE_SND_AGC_EXP
-	RX_AGC_RMS_TAV,  
-	RX_AGC_ATTACK_K, 
-	RX_AGC_RELEASE_K,
-	RX_AGC_DELAY,
-	RX_AGC_AIG_LEAK_RATE_SLOW,
-	RX_AGC_AIG_LEAK_RATE_FAST,			/* 40 */
-	RX_AGC_AIG_ATTACK_K,
-	RX_AGC_AIG_RELEASE_K,
-	RX_AGC_AIG_RAMP_UP,
-	RX_AGC_AIG_RAMP_DOWN,
-	RX_AGC_AIG_MIN,
-	RX_AGC_AIG_MAX,
-	RX_AVC_THRESH_LIST,
-	RX_AVC_GAIN_LIST,
-	RX_AVC_SMOOTH,
-	RX_AVC_RAMP,			/* 50 */
-	TX_AGC_RMS_TAV,
-	TX_AGC_ATTACK_K,
-	TX_AGC_RELEASE,
-	TX_AGC_DELAY,
-	TX_AGC_LEAK_RATE_SLOW,
-	TX_AGC_LEAK_RATE_FAST,
-	TX_AGC_AIG_ATTACK_K,
-	TX_AGC_AIG_RELEASE_K,
-	TX_AGC_AIG_RAMP_UP,
-	TX_AGC_AIG_RAMP_DOWN,			/* 60 */
-	TX_AGC_AIG_MIN,
-	TX_AGC_AIG_MAX,   //LGE_UPDATE_E YERI 2006_1_12]
-#endif/*FEATURE_LGE_SND_AGC_EXP*/
-	RX_AGC_CMD_TYPE,
-	//RX_AVC_CMD_TYPE,
-	TX_AGC_CMD_TYPE,
-#endif /* FEATURE_AUDIO_AGC */
-    VOCCAL_PROPERTY_MAX,	/* 37 */
-} voccal_property_enum_type;
-#endif
-
-struct msm_snd_set_voccal_param {
-	voc_codec_type voc_codec;	/* voc_codec */
-	int voccal_param_type; //voccal_property_enum_type voccal_param_type;	/* voccal_param_type */
-	uint32_t param_val;	/* param_val */
-	int get_flag;  //get_flag = 0 for set, get_flag = 1 for get
-	int get_param;
-};
-
-typedef enum{
-  RX_FLAG,
-  RX_STAGE_CNT,
-  RX_STAGE1_A1,
-  RX_STAGE1_A2,
-  RX_STAGE1_B0,
-  RX_STAGE1_B1,
-  RX_STAGE1_B2,
-  RX_STAGE2_A1,
-  RX_STAGE2_A2,
-  RX_STAGE2_B0,
-  RX_STAGE2_B1,
-  RX_STAGE2_B2,
-  RX_STAGE3_A1,
-  RX_STAGE3_A2,
-  RX_STAGE3_B0,
-  RX_STAGE3_B1,
-  RX_STAGE3_B2,
-  RX_STAGE4_A1,
-  RX_STAGE4_A2,
-  RX_STAGE4_B0,
-  RX_STAGE4_B1,
-  RX_STAGE4_B2,
-  RX_STAGE5_A1,
-  RX_STAGE5_A2,
-  RX_STAGE5_B0,
-  RX_STAGE5_B1,
-  RX_STAGE5_B2,
-  TX_FLAG,
-  TX_STAGE_CNT,
-  TX_STAGE1_A1,
-  TX_STAGE1_A2,
-  TX_STAGE1_B0,
-  TX_STAGE1_B1,
-  TX_STAGE1_B2,
-  TX_STAGE2_A1,
-  TX_STAGE2_A2,
-  TX_STAGE2_B0,
-  TX_STAGE2_B1,
-  TX_STAGE2_B2,
-  TX_STAGE3_A1,
-  TX_STAGE3_A2,
-  TX_STAGE3_B0,
-  TX_STAGE3_B1,
-  TX_STAGE3_B2,
-  TX_STAGE4_A1,
-  TX_STAGE4_A2,
-  TX_STAGE4_B0,
-  TX_STAGE4_B1,
-  TX_STAGE4_B2,
-  TX_STAGE5_A1,
-  TX_STAGE5_A2,
-  TX_STAGE5_B0,
-  TX_STAGE5_B1,
-  TX_STAGE5_B2, 
-  IIR_PARAM_MAX,
-}voccal_iir_filter_type;
-
-struct msm_snd_set_voccal_iir_param {
-     voc_codec_type voc_codec;
-     voccal_iir_filter_type voccal_iir_param_type;
-     int32_t param_val;
-	int get_flag;  //get_flag = 0 for set, get_flag = 1 for get
-	 int get_param;
-};
-
-typedef enum {
-  VOC_EC_OFF = 0,
-  VOC_EC_ESEC,
-  VOC_EC_HEADSET,
-  VOC_EC_AEC,
-  VOC_EC_SPEAKER,
-  VOC_EC_BT,
-  VOC_EC_DEFAULT
-} voc_ec_type;
-
-typedef enum {
-  NLPP_LIMIT,
-  NLPP_GAIN,
-  NLMS_LIMIT,
-  MODE,
-  TUNING_MODE,
-  ECHO_PATH_DELAY,
-  OUTPUTGAIN,
-  INPUTGAIN,
-  NLMS_TWOALPHA,
-  NLMS_ERL,
-  NLMS_TAPS,
-  NLMS_PRESET_COEFS,
-  NLMS_OFFSET,
-  NLMS_ERL_BG,
-  NLMS_TAPS_BG,
-  PCD_THRESHOLD,
-  MINIMUM_ERL,
-  ERL_STEP,
-  MAX_NOISE_FLOOR,
-  DET_THRESHOLD,
-  SPDET_FAR,
-  SPDET_MIC,
-  SPDET_XCLIP,
-  DENS_TAIL_ALPHA,
-  DENS_TAIL_PORTION,
-  DENS_GAMMA_E_ALPHA,
-  DENS_GAMMA_E_DT,
-  DENS_GAMMA_E_LOW,
-  DENS_GAMMA_E_RESCUE,
-  DENS_GAMMA_E_HIGH,
-  DENS_SPDET_NEAR,
-  DENS_SPDET_ACT,
-  DENS_GAMMA_N,
-  DENS_NFE_BLOCKSIZE,
-  DENS_LIMIT_NS,
-  DENS_NL_ATTEN,
-  DENS_CNI_LEVEL,
-  WB_ECHO_RATIO
-}nextgen_ec_param_enum_type;
-
-struct msm_snd_set_next_ec_param {
-     voc_ec_type ec_mode;
-     nextgen_ec_param_enum_type ec_param_type;
-     int32_t param_val;
-     int get_flag;  //get_flag = 0 for set, get_flag = 1 for get
-	 int get_param;
-};
-
-struct msm_snd_set_rx_volume_param {
-     uint32_t device;
-     uint32_t method;
-     uint8_t idx;
-     int32_t param_val;
-     int get_flag;  //get_flag = 0 for set, get_flag = 1 for get
-	 int get_param;
-};
-
-struct msm_snd_set_dtmf_volume_param {
-     uint32_t device;
-     uint32_t method;
-     uint8_t idx;
-     int32_t param_val;
-     int get_flag;  //get_flag = 0 for set, get_flag = 1 for get
-	 int get_param;
-};
-
-struct msm_snd_set_pad_value_param {
-     uint32_t device;
-     uint32_t method;
-     uint8_t idx;
-     int32_t param_val;
-     int get_flag;  //get_flag = 0 for set, get_flag = 1 for get
-	 int get_param;
-};
-
-typedef enum {
-  HPH = 0,
-  SPK,
-} amp_gain_type;
-
-struct msm_snd_set_amp_gain_param {
-     voc_codec_type voc_codec;
-     amp_gain_type gain_type;
-     int32_t value;
-     int get_flag;  //get_flag = 0 for set, get_flag = 1 for get
-	 int get_param;
-};
-
-struct msm_snd_set_fm_radio_vol_param {
-	int32_t volume;
-};
-
-struct msm_snd_set_micamp_gain_param {
-     voc_codec_type voc_codec;
-     int mic_channel;
-     int32_t value;
-     int get_flag;  //get_flag = 0 for set, get_flag = 1 for get
-	 int get_param;
-};
-
-struct msm_snd_set_voice_clarity_param {
-	int32_t mode;
-	int get_param;
-};
-
-struct msm_snd_set_hook_mode_param {
-	int32_t mode;
-	int get_param;
-};
-
-#define SND_SET_VOCCAL_PARAM _IOWR(SND_IOCTL_MAGIC, 6, struct msm_snd_set_voccal_param *)
-#define SND_SET_VOCCAL_IIR_PARAM _IOWR(SND_IOCTL_MAGIC, 7, struct msm_snd_set_voccal_iir_param *)
-#define SND_SET_NEXT_EC_PARAM _IOWR(SND_IOCTL_MAGIC, 8, struct msm_snd_set_next_ec_param *)
-#define SND_SET_RX_VOLUME _IOWR(SND_IOCTL_MAGIC, 9, struct msm_snd_set_rx_volume_param *)
-#define SND_SET_DTMF_VOLUME _IOWR(SND_IOCTL_MAGIC, 10, struct msm_snd_set_dtmf_volume_param *)
-#define SND_SET_PAD_VALUE _IOWR(SND_IOCTL_MAGIC, 11, struct msm_snd_set_pad_value_param *)
-#define SND_SET_LOOPBACK_MODE 				_IOWR(SND_IOCTL_MAGIC, 12, struct msm_snd_set_loopback_mode_param *)
-#define SND_SET_AMP_GAIN _IOWR(SND_IOCTL_MAGIC, 13, struct msm_snd_set_amp_gain_param *)
-#define SND_WRITE_EFS _IOWR(SND_IOCTL_MAGIC, 14, int *)
-#define SND_SET_MICAMP_GAIN _IOWR(SND_IOCTL_MAGIC, 15, struct msm_snd_set_micamp_gain_param *)
-#define SND_WRITE_MEM _IOWR(SND_IOCTL_MAGIC, 16, int *)
-#define SND_SET_FM_RADIO_VOLUME _IOWR(SND_IOCTL_MAGIC, 17, int *)
-#define SND_SET_VOICE_CLARITY _IOWR(SND_IOCTL_MAGIC, 18, struct msm_snd_set_voice_clarity_param *)
-#define SND_SET_POWER_OFF _IOWR(SND_IOCTL_MAGIC, 19, int *)
-/* LGE_CHANGE_E, [junyoub.an] , 2010-02-19, For audio cal tool.*/
-
-/* LGE_CHANGE_S, [junyoub.an] , 2010-02-28, for hook key*/
-#define SND_SET_HOOK_MODE _IOWR(SND_IOCTL_MAGIC, 20, struct msm_snd_set_hook_mode_param *)
-/* LGE_CHANGE_S, [junyoub.an] , 2010-09-05, To control amp*/
-#if defined (CONFIG_MACH_MSM7X27_THUNDERG)
-#define SND_SET_AMP_CONTROL _IOWR(SND_IOCTL_MAGIC, 21, struct msm_snd_set_hook_mode_param *)
-#endif
-/* LGE_CHANGE_E, [junyoub.an] , 2010-09-05, To control amp*/
-/* LGE_CHANGE_E, [junyoub.an] , 2010-02-28, for hook key*/
-#endif
-
-#if defined (CONFIG_LGE_AUDIO_HIDDEN_MENU_TEST_PATCH)
-/* LGE_CHANGES_S [kiwone@lge.com] 2010-01-10, [VS740]  for testmode call acoustic rec/play */
-struct msm_snd_set_call_acoustic_path_onoff_param {
-	int32_t on_off;
-	int get_param;
-};
-#define SND_SET_CALL_ACOUSTIC_PATH_ONOFF	_IOWR(SND_IOCTL_MAGIC, 13, struct msm_snd_set_call_acoustic_path_onoff_param *)
-#endif
 
 #endif

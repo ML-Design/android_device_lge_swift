@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
- * Copyright (C) 2010, Code Aurora Forum. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,14 +126,17 @@ public:
      */
     virtual status_t    startPreview() = 0;
 
-#ifdef USE_GETBUFFERINFO
     /**
      * Query the recording buffer information from HAL.
      * This is needed because the opencore expects the buffer
      * information before starting the recording.
      */
     virtual status_t    getBufferInfo(sp<IMemory>& Frame, size_t *alignedSize) = 0;
-#endif
+
+    /**
+     * Encode the YUV data.
+     */
+    virtual void        encodeData() = 0;
 
     /**
      * Only used if overlays are used for camera preview.
@@ -214,6 +216,11 @@ public:
     virtual status_t sendCommand(int32_t cmd, int32_t arg1, int32_t arg2) = 0;
 
     /**
+    * function stub. keep compatible.
+    */
+    virtual status_t stub() = 0;
+
+    /**
      * Release the hardware resources owned by this object.  Note that this is
      * *not* done in the destructor.
      */
@@ -223,7 +230,6 @@ public:
      * Dump state of the camera hardware
      */
     virtual status_t dump(int fd, const Vector<String16>& args) const = 0;
-
 };
 
 /**

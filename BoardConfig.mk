@@ -8,6 +8,9 @@ TARGET_BOARD_PLATFORM := msm7x27
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_CPU_ABI := armeabi
 TARGET_ARCH_VARIANT := armv6-vfp
+TARGET_CPU_ABI := armeabi-v6l
+TARGET_CPU_ABI2 := armeabi
+ARCH_ARM_HAVE_VFP := true
 
 # BOOTLOADER
 TARGET_NO_BOOTLOADER := true
@@ -32,10 +35,10 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_CUSTOM_BRCM_PATCHRAM_PLUS := ../../../device/lge/swift/prebuilt/brcm_patchram_plus.c
 
 # CAMERA
-#USE_CAMERA_STUB := false
-USE_CAMERA_STUB := true
-BOARD_CAMERA_USE_GETBUFFERINFO := true
-BOARD_USE_CAF_LIBCAMERA := true
+USE_CAMERA_STUB := false
+#USE_CAMERA_STUB := true
+#BOARD_CAMERA_USE_GETBUFFERINFO := true
+#BOARD_USE_CAF_LIBCAMERA := true
 
 # FM RADIO
 BOARD_FM_DEVICE := bcm4325
@@ -52,14 +55,19 @@ BOARD_EGL_CFG := device/lge/swift/proprietary/lib/egl/egl.cfg
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 
 # GSM RADIO
-TARGET_PROVIDES_LIBRIL := true
+TARGET_PROVIDES_LIBRIL := false
 
 # HEADERS
 TARGET_SPECIFIC_HEADER_PATH := device/lge/swift/include
 
 # USB
-BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+#BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
+#TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun%d/file
+
+BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun0/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
+
 
 # KERNEL
 TARGET_PREBUILT_KERNEL := device/lge/swift/kernel
@@ -76,15 +84,16 @@ BOARD_USES_QCOM_LEGACY := true
 # WIFI
 BOARD_WLAN_DEVICE := bcm4325
 BOARD_WIRELESS_CHIP := bcm4325
-WIFI_DRIVER_FW_STA_PATH         := "/system/etc/wl/rtecdc.bin"
-WIFI_DRIVER_FW_AP_PATH          := "/system/etc/wl/rtecdc-apsta.bin"
+WIFI_DRIVER_FW_PATH_STA         := "/system/etc/wl/rtecdc.bin"
+WIFI_DRIVER_FW_PATH_AP          := "/system/etc/wl/rtecdc-apsta.bin"
 WIFI_DRIVER_MODULE_NAME         := "wireless"
 WIFI_DRIVER_MODULE_PATH         := "/system/lib/modules/wireless.ko"
-WIFI_DRIVER_MODULE_ARG          := "iface_name=wlan0 firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt"
+WIFI_DRIVER_MODULE_ARG          := "firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt" 
+#iface_name=wlan0 
 WPA_SUPPLICANT_VERSION          := VER_0_5_X
 WIFI_DRIVER_HAS_LGE_SOFTAP      := true
-#BOARD_WEXT_NO_COMBO_SCAN        := true
 BOARD_WPA_SUPPLICANT_DRIVER     := WEXT
+TARGET_CUSTOM_WIFI := ../../device/lge/swift/prebuilt/wifi.c
 
 # CHARGERMODE
 BOARD_GLOBAL_CFLAGS += -DCHARGERMODE_CMDLINE_NAME='"lge.reboot"' -DCHARGERMODE_CMDLINE_VALUE='"pwroff"'
@@ -100,10 +109,16 @@ TARGET_FORCE_CPU_UPLOAD := true
 BOARD_AVOID_DRAW_TEXTURE_EXTENSION := true
 WITH_JIT := true
 #JS_ENGINE := v8
-#BUILD_WITH_FULL_STAGEFRIGHT := true
+#HTTP := chrome
+BOARD_EGL_GRALLOC_USAGE_FILTER := true
+TARGET_USES_16BPPSURFACE_FOR_OPAQUE := true
+TARGET_DO_NOT_SETS_CAN_DRAW := true
+TARGET_SF_NEEDS_REAL_DIMENSIONS := true
+BOARD_USE_NASTY_PTHREAD_CREATE_HACK := true
+BOARD_AVOID_DRAW_TEXTURE_EXTENSION := true
 
 COMMON_GLOBAL_CFLAGS += -DTARGET_MSM7x27 -DNO_RGBX_8888
 COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE -DMISSING_GRALLOC_BUFFERS
 COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_PIXEL_FORMAT_YV12
-COMMON_GLOBAL_CFLAGS += -DBOARD_GL_OES_EGL_IMG_EXTERNAL_HACK 
 COMMON_GLOBAL_CFLAGS += -D_INTERNAL_BINDER_PARCEL_ -DUSE_LGE_ALS_DUMMY
+

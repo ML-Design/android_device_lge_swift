@@ -1,7 +1,7 @@
 # Board-specific init 
 PRODUCT_COPY_FILES += device/lge/swift/files/init.rc:root/init.rc
 PRODUCT_COPY_FILES += device/lge/swift/files/init.swift.rc:root/init.swift.rc
-PRODUCT_COPY_FILES += device/lge/swift/files/init.swift.rc:root/init.swift.usb.rc
+#PRODUCT_COPY_FILES += device/lge/swift/files/init.swift.rc:root/init.swift.usb.rc
 PRODUCT_COPY_FILES += device/lge/swift/files/ueventd.swift.rc:root/ueventd.swift.rc
 
 CHARGERMODE := false
@@ -60,6 +60,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
 	device/lge/swift/prebuilt/etc/AudioFilter.csv:system/etc/AudioFilter.csv \
+	device/lge/swift/prebuilt/etc/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
 	device/lge/swift/proprietary/lib/libaudioeq.so:system/lib/libaudioeq.so \
 	
 # Camera proprietaries
@@ -97,7 +98,7 @@ PRODUCT_COPY_FILES += \
 	device/lge/swift/proprietary/lib/ril/liblgdrmwbxml.so:system/lib/liblgdrmwbxml.so \
 	device/lge/swift/proprietary/lib/ril/liblgeat.so:system/lib/liblgeat.so \
 	device/lge/swift/proprietary/lib/ril/liblgerft.so:system/lib/liblgerft.so \
-#	device/lge/swift/proprietary/lib/ril/libril.so:system/lib/libril.so
+	device/lge/swift/proprietary/lib/ril/libril.so:system/lib/libril.so
 
 # LGE services
 PRODUCT_COPY_FILES += \
@@ -151,34 +152,23 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/lge/swift/proprietary/lib/egl/egl.cfg:system/lib/egl/egl.cfg \
 	device/lge/swift/prebuilt/etc/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \
-
-# OpenGL GT540 2.1 for old 3D driver 2.6.29
-PRODUCT_COPY_FILES += \
+	device/lge/swift/proprietary/lib/egl/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
 	device/lge/swift/proprietary/lib/egl/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \
 	device/lge/swift/proprietary/lib/egl/libGLESv2_adreno200.so:system/lib/egl/libGLESv2_adreno200.so \
 	device/lge/swift/proprietary/lib/egl/libGLESv1_CM_adreno200.so:system/lib/egl/libGLESv1_CM_adreno200.so \
 	device/lge/swift/proprietary/lib/egl/libq3dtools_adreno200.so:system/lib/egl/libq3dtools_adreno200.so \
 	device/lge/swift/proprietary/lib/egl/libgsl.so:system/lib/libgsl.so \
-	device/lge/swift/proprietary/lib/egl/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
 
-# OpenGL P500 2.3
-#PRODUCT_COPY_FILES += \
-#	device/lge/swift/proprietary/lib/egl500/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \
-#	device/lge/swift/proprietary/lib/egl500/libGLESv2_adreno200.so:system/lib/egl/libGLESv2_adreno200.so \
-#	device/lge/swift/proprietary/lib/egl500/libGLESv1_CM_adreno200.so:system/lib/egl/libGLESv1_CM_adreno200.so \
-#	device/lge/swift/proprietary/lib/egl500/libq3dtools_adreno200.so:system/lib/egl/libq3dtools_adreno200.so \
-#	device/lge/swift/proprietary/lib/egl500/libgsl.so:system/lib/libgsl.so \
-#	device/lge/swift/proprietary/lib/egl500/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
-	
 # HW
 PRODUCT_COPY_FILES += \
 	device/lge/swift/proprietary/lib/lights.swift.so:system/lib/hw/lights.swift.so \
-#	device/lge/swift/proprietary/lib/sensors.swift.so:system/lib/hw/sensors.swift.so \
+	device/lge/swift/proprietary/lib/sensors.swift.so:system/lib/hw/sensors.swift.so \
 	
 # Custom apps
 PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/apps/RootExplorer.apk:system/app/RootExplorer.apk \
 	device/lge/swift/prebuilt/apps/Homeselector.apk:system/app/Homeselector.apk \
+	device/lge/swift/prebuilt/apps/usbstorage.apk:system/app/usbstorage.apk \
 
 SWIFT_WITH_GOOGLE := false
 
