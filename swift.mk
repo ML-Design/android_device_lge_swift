@@ -45,6 +45,9 @@ PRODUCT_PACKAGES += \
 	copybit.swift \
 	sensors.swift \
 	camera.swift \
+	liblgdrm \
+	liblgeat \
+	liblgerft \
 	libOmxCore \
 	libmm-omxcore \
 	libstagefrighthw \
