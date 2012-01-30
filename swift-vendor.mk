@@ -94,7 +94,7 @@ PRODUCT_COPY_FILES += \
 	device/lge/swift/proprietary/lib/ril/libril-qcril-hook-oem.so:system/lib/libril-qcril-hook-oem.so \
 	device/lge/swift/proprietary/lib/ril/libwms.so:system/lib/libwms.so \
 	device/lge/swift/proprietary/lib/ril/libwmsts.so:system/lib/libwmsts.so \
-	device/lge/swift/proprietary/lib/ril/libril.so:system/lib/libril.so
+#	device/lge/swift/proprietary/lib/ril/libril.so:system/lib/libril.so
 #	device/lge/swift/proprietary/lib/ril/liblgdrm.so:system/lib/liblgdrm.so \
 #	device/lge/swift/proprietary/lib/ril/liblgdrmwbxml.so:system/lib/liblgdrmwbxml.so \
 #	device/lge/swift/proprietary/lib/ril/liblgeat.so:system/lib/liblgeat.so \

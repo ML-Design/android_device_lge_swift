@@ -47,7 +47,7 @@
 **                 function inside the file 
 **                 system/bluetooth/bluedroid/bluetooth.c.
 **
-**                 If the Android system property "ro.bt.bdaddr_path" is
+**                 If the Android system property "ro.bt.bcm_bdaddr_path" is
 **                 set, then the bd_addr will be read from this path.
 **                 This is overridden by --bd_addr on the command line.
 **  
@@ -344,6 +344,25 @@ parse_bdaddr(char *optarg)
 	int i;
 
 	sscanf(optarg, "%02X:%02X:%02X:%02X:%02X:%02X",
+		&bd_addr[5], &bd_addr[4], &bd_addr[3],
+		&bd_addr[2], &bd_addr[1], &bd_addr[0]);
+
+	for (i = 0; i < 6; i++) {
+		hci_write_bd_addr[4 + i] = bd_addr[i];
+	}
+
+	bdaddr_flag = 1;	
+
+	return(0);
+}
+
+int
+parse_bdaddr_gt540(char *optarg)
+{
+	int bd_addr[6];
+	int i;
+
+	sscanf(optarg, "%02X%02X%02X%02X%02X%02X",
 		&bd_addr[5], &bd_addr[4], &bd_addr[3],
 		&bd_addr[2], &bd_addr[1], &bd_addr[0]);
 
@@ -772,12 +791,15 @@ read_default_bdaddr()
 {
 	int sz;
 	int fd;
-/* TAG JB 03/11/2011 : Read BDADDR from rfkill (who reads bdaddr from smem)
- * Might be removed if we can use the ro.bt.bdaddr_path property instead. More clean
- */
-	char path[PROPERTY_VALUE_MAX] = "/sys/module/board_htcraphael_rfkill/parameters/bdaddr";
-/* End of TAG */
+	char path[PROPERTY_VALUE_MAX];
 	char bdaddr[18];
+
+	property_get("persist.service.brcm.bt.mac", bdaddr, "");
+	if (strlen(bdaddr) == 12) {
+    	printf("Read default bdaddr of %s\n", bdaddr);
+	    parse_bdaddr_gt540(bdaddr);
+	    return;
+	}
 
 	property_get("ro.bt.bdaddr_path", path, "");
 	if (path[0] == 0)
@@ -862,6 +884,5 @@ main (int argc, char **argv)
 			sleep(UINT_MAX);
 		}
 	}
-
 	exit(0);
 }

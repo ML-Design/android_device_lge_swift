@@ -182,10 +182,7 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --baudrate 3000000
 #	oneshot
 	 
 service akmd2 /system/bin/akmd2
-	class main
-    user compass
-	group system
-#    group compass misc input
-    
-on property:dev.bootcomplete=1
-    exec /system/bin/hwaddrs
+#	class main
+#	user compass
+#	group system
+#	group compass misc input

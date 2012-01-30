@@ -39,12 +39,13 @@ PRODUCT_COPY_FILES += \
 
 
 PRODUCT_PACKAGES += \
-	hwaddrs \
+	bdaddr_read \
 	gps.swift \
 	gralloc.swift \
 	copybit.swift \
 	sensors.swift \
 	camera.swift \
+	libril \
 	liblgdrm \
 	liblgeat \
 	liblgerft \
