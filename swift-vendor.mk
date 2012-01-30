@@ -138,15 +138,15 @@ PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
 	device/lge/swift/prebuilt/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
 	device/lge/swift/prebuilt/keylayout/7k_headset.kl:system/usr/keylayout/7k_headset.kl \
-	device/lge/swift/prebuilt/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-	device/lge/swift/prebuilt/keylayout/swift.kl:system/usr/keylayout/swift.kl \
+#	device/lge/swift/prebuilt/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+#	device/lge/swift/prebuilt/keylayout/swift.kl:system/usr/keylayout/swift.kl \
 	device/lge/swift/prebuilt/keylayout/swift_keypad.kl:system/usr/keylayout/swift_keypad.kl \
 	device/lge/swift/prebuilt/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
 	device/lge/swift/prebuilt/keylayout/msm_touchscreen.kl:system/usr/keylayout/msm_touchscreen.kl \
 	device/lge/swift/prebuilt/idc/msm_touchscreen.idc:system/usr/idc/msm_touchscreen.idc \
-	device/lge/swift/prebuilt/keychars/swift_touchscreen.kcm.bin:system/usr/keychars/swift_touchscreen.kcm.bin \
-	device/lge/swift/prebuilt/keylayout/swift_touchscreen.kl:system/usr/keylayout/swift_touchscreen.kl \
-	device/lge/swift/prebuilt/keylayout/7x27_kybd.kl:system/usr/keylayout/7x27_kybd.kl \
+#	device/lge/swift/prebuilt/keychars/swift_touchscreen.kcm.bin:system/usr/keychars/swift_touchscreen.kcm.bin \
+#	device/lge/swift/prebuilt/keylayout/swift_touchscreen.kl:system/usr/keylayout/swift_touchscreen.kl \
+#	device/lge/swift/prebuilt/keylayout/7x27_kybd.kl:system/usr/keylayout/7x27_kybd.kl \
 
 # OpenGL
 PRODUCT_COPY_FILES += \
