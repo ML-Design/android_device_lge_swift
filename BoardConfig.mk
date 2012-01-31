@@ -17,11 +17,13 @@ TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := swift
 TARGET_OTA_ASSERT_DEVICE := swift,gt540
 
-# PARTITIONS
+# PARTITIONS (system 170mb)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00500000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00500000
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0f500000
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x08a80000
+#BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0f500000
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0aa00000
+#BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x08a80000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x0d580000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -65,9 +67,8 @@ TARGET_SPECIFIC_HEADER_PATH := device/lge/swift/include
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 #BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 #TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun%d/file
-
-BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun0/file
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
+BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 
 
 # KERNEL
@@ -87,14 +88,14 @@ BOARD_WLAN_DEVICE := bcm4325
 BOARD_WIRELESS_CHIP := bcm4325
 WIFI_DRIVER_FW_PATH_STA         := "/system/etc/wl/rtecdc.bin"
 WIFI_DRIVER_FW_PATH_AP          := "/system/etc/wl/rtecdc-apsta.bin"
-WIFI_DRIVER_MODULE_NAME         := "wireless"
+WIFI_DRIVER_MODULE_NAME         := wireless
 WIFI_DRIVER_MODULE_PATH         := "/system/lib/modules/wireless.ko"
 WIFI_DRIVER_MODULE_ARG          := "firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt" 
 #iface_name=wlan0 
 WPA_SUPPLICANT_VERSION          := VER_0_5_X
 WIFI_DRIVER_HAS_LGE_SOFTAP      := true
 BOARD_WPA_SUPPLICANT_DRIVER     := WEXT
-TARGET_CUSTOM_WIFI := ../../device/lge/swift/prebuilt/wifi.c
+#TARGET_CUSTOM_WIFI := ../../device/lge/swift/prebuilt/wifi.c
 
 # CHARGERMODE
 BOARD_GLOBAL_CFLAGS += -DCHARGERMODE_CMDLINE_NAME='"lge.reboot"' -DCHARGERMODE_CMDLINE_VALUE='"pwroff"'
