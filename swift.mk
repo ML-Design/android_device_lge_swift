@@ -63,6 +63,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
         librs_jni \
+		LedNotifications \
 #        LiveWallpapers \
 #        LiveWallpapersPicker \
 #        VisualizationWallpapers \
