@@ -21,7 +21,9 @@
      for different hardware and product builds. -->
 <resources>
 
-<!--	<bool name="config_usesLegacyUsbDeviceManager">true</bool>  -->
+    <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
+         autodetected from the Configuration. -->
+    <bool name="config_showNavigationBar">true</bool>
 	
     <!-- Display low battery warning when battery level dips to this value -->
     <integer name="config_lowBatteryWarningLevel">10</integer>
