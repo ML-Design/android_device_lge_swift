@@ -8,9 +8,9 @@ TARGET_BOARD_PLATFORM := msm7x27
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_CPU_ABI := armeabi
 TARGET_ARCH_VARIANT := armv6-vfp
-TARGET_CPU_ABI := armeabi-v6l
-TARGET_CPU_ABI2 := armeabi
-ARCH_ARM_HAVE_VFP := true
+#TARGET_CPU_ABI := armeabi-v6l
+#TARGET_CPU_ABI2 := armeabi
+#ARCH_ARM_HAVE_VFP := true
 
 # BOOTLOADER
 TARGET_NO_BOOTLOADER := true
@@ -58,7 +58,7 @@ BOARD_EGL_CFG := device/lge/swift/proprietary/lib/egl/egl.cfg
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 
 # GSM RADIO
-#TARGET_PROVIDES_LIBRIL := false
+TARGET_PROVIDES_LIBRIL := true
 
 # HEADERS
 TARGET_SPECIFIC_HEADER_PATH := device/lge/swift/include
@@ -87,7 +87,7 @@ WIFI_DRIVER_FW_PATH_STA         := "/system/etc/wl/rtecdc.bin"
 WIFI_DRIVER_FW_PATH_AP          := "/system/etc/wl/rtecdc-apsta.bin"
 WIFI_DRIVER_MODULE_NAME         := wireless
 WIFI_DRIVER_MODULE_PATH         := "/system/lib/modules/wireless.ko"
-WIFI_DRIVER_MODULE_ARG          := "firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt" 
+WIFI_DRIVER_MODULE_ARG          := "firmware_path=/etc/wl/rtecdc.bin nvram_path=/etc/wl/nvram.txt"
 #iface_name=wlan0 
 WPA_SUPPLICANT_VERSION          := VER_0_5_X
 WIFI_DRIVER_HAS_LGE_SOFTAP      := true
@@ -112,10 +112,6 @@ TARGET_USES_OLD_LIBSENSORS_HAL := true
 TARGET_SENSORS_NO_OPEN_CHECK := true
 #JS_ENGINE := v8
 #HTTP := chrome
-#TARGET_USES_16BPPSURFACE_FOR_OPAQUE := true
-#TARGET_DO_NOT_SETS_CAN_DRAW := true
-#TARGET_SF_NEEDS_REAL_DIMENSIONS := true
-#BOARD_USE_NASTY_PTHREAD_CREATE_HACK := true
 
 COMMON_GLOBAL_CFLAGS += -DTARGET_MSM7x27 -DNO_RGBX_8888
 COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE -DMISSING_GRALLOC_BUFFERS

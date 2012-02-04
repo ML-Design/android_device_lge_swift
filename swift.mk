@@ -45,6 +45,7 @@ PRODUCT_PACKAGES += \
 	copybit.swift \
 	sensors.swift \
 	camera.swift \
+	libcamera \
 	libril \
 	liblgdrm \
 	liblgeat \
@@ -52,7 +53,6 @@ PRODUCT_PACKAGES += \
 	libOmxCore \
 	libmm-omxcore \
 	libstagefrighthw \
-	libopencorehw \
 	audio.a2dp.default \
 	audio.a2dp.swift \
 	audio_policy.swift \
@@ -63,7 +63,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
         librs_jni \
-		LedNotifications \
+	LedNotifications \
 #        LiveWallpapers \
 #        LiveWallpapersPicker \
 #        VisualizationWallpapers \

@@ -91,7 +91,7 @@ int PmemUserspaceAllocator::init_pmem_area_locked()
         if (err < 0) {
             LOGE("%s: PMEM_GET_TOTAL_SIZE failed (%d), limp mode", pmemdev,
                     err);
-            size = 8<<20;   // 8 MiB
+            size = 4<<20;   // 8 MiB
         }
         allocator.setSize(size);
 

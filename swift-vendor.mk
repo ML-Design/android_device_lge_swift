@@ -4,10 +4,7 @@ PRODUCT_COPY_FILES += device/lge/swift/files/init.swift.rc:root/init.swift.rc
 #PRODUCT_COPY_FILES += device/lge/swift/files/init.swift.rc:root/init.swift.usb.rc
 PRODUCT_COPY_FILES += device/lge/swift/files/ueventd.swift.rc:root/ueventd.swift.rc
 
-CHARGERMODE := false
-
-ifdef CHARGERMODE
-
+# CHARGERMODE
 PRODUCT_COPY_FILES += \
 	device/lge/swift/chargemode/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
     device/lge/swift/chargemode/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
@@ -26,8 +23,6 @@ PRODUCT_COPY_FILES += \
     device/lge/swift/chargemode/chargerimages/black_bg.rle:root/chargerimages/black_bg.rle \
 	device/lge/swift/chargemode/chargerlogo:root/sbin/chargerlogo
 
-endif	
-	
 # etc
 PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/etc/hosts:system/etc/hosts \
@@ -68,8 +63,8 @@ PRODUCT_COPY_FILES += \
 	device/lge/swift/proprietary/lib/camera/liboemcamera.so:system/lib/liboemcamera.so \
 	device/lge/swift/proprietary/lib/camera/libmmjpeg.so:system/lib/libmmjpeg.so \
 	device/lge/swift/proprietary/lib/camera/libmmipl.so:system/lib/libmmipl.so \
-	device/lge/swift/proprietary/lib/camera/libcamera.so:system/lib/libcamera.so \
-	device/lge/swift/proprietary/lib/camera/libcamera.so:obj/lib/libcamera.so \
+#	device/lge/swift/proprietary/lib/camera/libcamera.so:system/lib/libcamera.so \
+#	device/lge/swift/proprietary/lib/camera/libcamera.so:obj/lib/libcamera.so \
 
 # RIL
 PRODUCT_COPY_FILES += \
@@ -138,21 +133,16 @@ PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
 	device/lge/swift/prebuilt/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
 	device/lge/swift/prebuilt/keylayout/7k_headset.kl:system/usr/keylayout/7k_headset.kl \
-#	device/lge/swift/prebuilt/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-#	device/lge/swift/prebuilt/keylayout/swift.kl:system/usr/keylayout/swift.kl \
 	device/lge/swift/prebuilt/keylayout/swift_keypad.kl:system/usr/keylayout/swift_keypad.kl \
 	device/lge/swift/prebuilt/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
 	device/lge/swift/prebuilt/keylayout/msm_touchscreen.kl:system/usr/keylayout/msm_touchscreen.kl \
 	device/lge/swift/prebuilt/idc/msm_touchscreen.idc:system/usr/idc/msm_touchscreen.idc \
-#	device/lge/swift/prebuilt/keychars/swift_touchscreen.kcm.bin:system/usr/keychars/swift_touchscreen.kcm.bin \
-#	device/lge/swift/prebuilt/keylayout/swift_touchscreen.kl:system/usr/keylayout/swift_touchscreen.kl \
-#	device/lge/swift/prebuilt/keylayout/7x27_kybd.kl:system/usr/keylayout/7x27_kybd.kl \
 
 # OpenGL
 PRODUCT_COPY_FILES += \
 	device/lge/swift/proprietary/lib/egl/egl.cfg:system/lib/egl/egl.cfg \
 	device/lge/swift/prebuilt/etc/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \
-	device/lge/swift/proprietary/lib/egl/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
+	device/lge/swift/prebuilt/etc/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
 	device/lge/swift/proprietary/lib/egl/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \
 	device/lge/swift/proprietary/lib/egl/libGLESv2_adreno200.so:system/lib/egl/libGLESv2_adreno200.so \
 	device/lge/swift/proprietary/lib/egl/libGLESv1_CM_adreno200.so:system/lib/egl/libGLESv1_CM_adreno200.so \
@@ -162,32 +152,25 @@ PRODUCT_COPY_FILES += \
 # HW
 PRODUCT_COPY_FILES += \
 	device/lge/swift/proprietary/lib/lights.swift.so:system/lib/hw/lights.swift.so \
-	device/lge/swift/proprietary/lib/sensors.swift.so:system/lib/hw/sensors.swift.so \
+#	device/lge/swift/proprietary/lib/sensors.swift.so:system/lib/hw/sensors.swift.so \
 	
 # Custom apps
 PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/apps/RootExplorer.apk:system/app/RootExplorer.apk \
 	device/lge/swift/prebuilt/apps/Homeselector.apk:system/app/Homeselector.apk \
-	device/lge/swift/prebuilt/apps/usbstorage.apk:system/app/usbstorage.apk \
 
-SWIFT_WITH_GOOGLE := false
-
-ifdef SWIFT_WITH_GOOGLE
-
-    # use all present proprietary apk
-    PRODUCT_COPY_FILES += $(shell find device/lge/swift/prebuilt/googleapps -name '*.apk' \
+# use all present proprietary apk
+PRODUCT_COPY_FILES += $(shell find device/lge/swift/prebuilt/googleapps -name '*.apk' \
 	-printf '%p:system/app/%f ')
 
-    # use all present proprietary lib
-    PRODUCT_COPY_FILES += $(shell find device/lge/swift/prebuilt/googleapps -name '*.so' \
+# use all present proprietary lib
+PRODUCT_COPY_FILES += $(shell find device/lge/swift/prebuilt/googleapps -name '*.so' \
 	-printf '%p:system/lib/%f ')
 
-    # use all present proprietary jar
-    PRODUCT_COPY_FILES += $(shell find device/lge/swift/prebuilt/googleapps -name '*.jar' \
+# use all present proprietary jar
+PRODUCT_COPY_FILES += $(shell find device/lge/swift/prebuilt/googleapps -name '*.jar' \
 	-printf '%p:system/framework/%f ')
 
-    # use all present proprietary xml (permissions)
-    PRODUCT_COPY_FILES += $(shell find device/lge/swift/prebuilt/googleapps -name '*.xml' \
+# use all present proprietary xml (permissions)
+PRODUCT_COPY_FILES += $(shell find device/lge/swift/prebuilt/googleapps -name '*.xml' \
 	-printf '%p:system/etc/permissions/%f ')
-
-endif
