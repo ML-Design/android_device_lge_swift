@@ -35,7 +35,6 @@ key 114   VOLUME_DOWN       WAKE_DROPPED
 key 217   SEARCH            
 key 212   CAMERA
 key 242   FOCUS
-key 231   CALL              WAKE_DROPPED
 
 key 16    Q
 key 17    W

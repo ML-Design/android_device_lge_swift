@@ -7,21 +7,22 @@ PRODUCT_COPY_FILES += device/lge/swift/files/ueventd.swift.rc:root/ueventd.swift
 # CHARGERMODE
 PRODUCT_COPY_FILES += \
 	device/lge/swift/chargemode/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
-    device/lge/swift/chargemode/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
-    device/lge/swift/chargemode/chargerimages/battery_ani_03.rle:root/chargerimages/battery_ani_03.rle \
-    device/lge/swift/chargemode/chargerimages/battery_ani_04.rle:root/chargerimages/battery_ani_04.rle \
-    device/lge/swift/chargemode/chargerimages/battery_ani_05.rle:root/chargerimages/battery_ani_05.rle \
-    device/lge/swift/chargemode/chargerimages/battery_bg.rle:root/chargerimages/battery_bg.rle \
-    device/lge/swift/chargemode/chargerimages/battery_charging_01.rle:root/chargerimages/battery_charging_01.rle \
-    device/lge/swift/chargemode/chargerimages/battery_charging_02.rle:root/chargerimages/battery_charging_02.rle \
-    device/lge/swift/chargemode/chargerimages/battery_charging_03.rle:root/chargerimages/battery_charging_03.rle \
-    device/lge/swift/chargemode/chargerimages/battery_charging_04.rle:root/chargerimages/battery_charging_04.rle \
-    device/lge/swift/chargemode/chargerimages/battery_charging_05.rle:root/chargerimages/battery_charging_05.rle \
-    device/lge/swift/chargemode/chargerimages/battery_charging_06.rle:root/chargerimages/battery_charging_06.rle \
-    device/lge/swift/chargemode/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_01.rle \
-    device/lge/swift/chargemode/chargerimages/battery_wait_ani_02.rle:root/chargerimages/battery_wait_ani_02.rle \
-    device/lge/swift/chargemode/chargerimages/black_bg.rle:root/chargerimages/black_bg.rle \
-	device/lge/swift/chargemode/chargerlogo:root/sbin/chargerlogo
+	device/lge/swift/chargemode/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
+	device/lge/swift/chargemode/chargerimages/battery_ani_03.rle:root/chargerimages/battery_ani_03.rle \
+	device/lge/swift/chargemode/chargerimages/battery_ani_04.rle:root/chargerimages/battery_ani_04.rle \
+	device/lge/swift/chargemode/chargerimages/battery_ani_05.rle:root/chargerimages/battery_ani_05.rle \
+	device/lge/swift/chargemode/chargerimages/battery_bg.rle:root/chargerimages/battery_bg.rle \
+	device/lge/swift/chargemode/chargerimages/battery_bg_bk.rle:root/chargerimages/battery_bg_bk.rle \
+	device/lge/swift/chargemode/chargerimages/battery_charging_01.rle:root/chargerimages/battery_charging_01.rle \
+	device/lge/swift/chargemode/chargerimages/battery_charging_02.rle:root/chargerimages/battery_charging_02.rle \
+	device/lge/swift/chargemode/chargerimages/battery_charging_03.rle:root/chargerimages/battery_charging_03.rle \
+	device/lge/swift/chargemode/chargerimages/battery_charging_04.rle:root/chargerimages/battery_charging_04.rle \
+	device/lge/swift/chargemode/chargerimages/battery_charging_05.rle:root/chargerimages/battery_charging_05.rle \
+	device/lge/swift/chargemode/chargerimages/battery_charging_06.rle:root/chargerimages/battery_charging_06.rle \
+	device/lge/swift/chargemode/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_01.rle \
+	device/lge/swift/chargemode/chargerimages/battery_wait_ani_02.rle:root/chargerimages/battery_wait_ani_02.rle \
+	device/lge/swift/chargemode/chargerimages/black_bg.rle:root/chargerimages/black_bg.rle \
+	device/lge/swift/chargemode/chargerlogo:root/sbin/chargerlogo \
 
 # etc
 PRODUCT_COPY_FILES += \
@@ -36,20 +37,20 @@ PRODUCT_COPY_FILES += \
 	device/lge/swift/proprietary/lib/omx/libOmxH264Dec.so:system/lib/libOmxH264Dec.so \
 	device/lge/swift/proprietary/lib/omx/libOmxMpeg4Dec.so:system/lib/libOmxMpeg4Dec.so \
 	device/lge/swift/proprietary/lib/omx/libOmxVidEnc.so:system/lib/libOmxVidEnc.so \
-	device/lge/swift/proprietary/lib/omx/libOmxAacEnc.so:system/lib/libOmxAacEnc.so \
-	device/lge/swift/proprietary/lib/omx/libOmxAacDec.so:system/lib/libOmxAacDec.so \
-	device/lge/swift/proprietary/lib/omx/libOmxAmrDec.so:system/lib/libOmxAmrDec.so \
-	device/lge/swift/proprietary/lib/omx/libOmxAmrEnc.so:system/lib/libOmxAmrEnc.so \
-	device/lge/swift/proprietary/lib/omx/libOmxAmrRtpDec.so:system/lib/libOmxAmrRtpDec.so \
-	device/lge/swift/proprietary/lib/omx/libOmxAmrwbDec.so:system/lib/libOmxAmrwbDec.so \
-	device/lge/swift/proprietary/lib/omx/libOmxEvrcDec.so:system/lib/libOmxEvrcDec.so \
-	device/lge/swift/proprietary/lib/omx/libOmxEvrcEnc.so:system/lib/libOmxEvrcEnc.so \
-	device/lge/swift/proprietary/lib/omx/libOmxAacEnc.so:system/lib/libOmxAacEnc.so \
-	device/lge/swift/proprietary/lib/omx/libOmxMp3Dec.so:system/lib/libOmxMp3Dec.so \
-	device/lge/swift/proprietary/lib/omx/libOmxQcelp13Enc.so:system/lib/libOmxQcelp13Enc.so \
-	device/lge/swift/proprietary/lib/omx/libOmxQcelpDec.so:system/lib/libOmxQcelpDec.so \
-	device/lge/swift/proprietary/lib/omx/libOmxWmaDec.so:system/lib/libOmxWmaDec.so \
-	device/lge/swift/proprietary/lib/omx/libOmxWmvDec.so:system/lib/libOmxWmvDec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxAacEnc.so:system/lib/libOmxAacEnc.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxAacDec.so:system/lib/libOmxAacDec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxAmrDec.so:system/lib/libOmxAmrDec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxAmrEnc.so:system/lib/libOmxAmrEnc.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxAmrRtpDec.so:system/lib/libOmxAmrRtpDec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxAmrwbDec.so:system/lib/libOmxAmrwbDec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxEvrcDec.so:system/lib/libOmxEvrcDec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxEvrcEnc.so:system/lib/libOmxEvrcEnc.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxAacEnc.so:system/lib/libOmxAacEnc.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxMp3Dec.so:system/lib/libOmxMp3Dec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxQcelp13Enc.so:system/lib/libOmxQcelp13Enc.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxQcelpDec.so:system/lib/libOmxQcelpDec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxWmaDec.so:system/lib/libOmxWmaDec.so \
+#	device/lge/swift/proprietary/lib/omx/libOmxWmvDec.so:system/lib/libOmxWmvDec.so \
 
 # Audio 
 PRODUCT_COPY_FILES += \
@@ -57,6 +58,8 @@ PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/etc/AudioFilter.csv:system/etc/AudioFilter.csv \
 	device/lge/swift/prebuilt/etc/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
 	device/lge/swift/proprietary/lib/libaudioeq.so:system/lib/libaudioeq.so \
+	device/lge/swift/proprietary/lib/libaudioalsa.so:system/lib/libaudioalsa.so \
+
 	
 # Camera proprietaries
 PRODUCT_COPY_FILES += \
@@ -129,14 +132,14 @@ PRODUCT_COPY_FILES += \
 # Keylayouts
 PRODUCT_COPY_FILES += \
 	device/lge/swift/prebuilt/keychars/msm_touchscreen.kcm.bin:system/usr/keychars/msm_touchscreen.kcm.bin \
+	device/lge/swift/prebuilt/keylayout/msm_touchscreen.kl:system/usr/keylayout/msm_touchscreen.kl \
+	device/lge/swift/prebuilt/idc/msm_touchscreen.idc:system/usr/idc/msm_touchscreen.idc \
 	device/lge/swift/prebuilt/keylayout/Generic.kl:system/usr/keylayout/Generic.kl \
 	device/lge/swift/prebuilt/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
 	device/lge/swift/prebuilt/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
 	device/lge/swift/prebuilt/keylayout/7k_headset.kl:system/usr/keylayout/7k_headset.kl \
-	device/lge/swift/prebuilt/keylayout/swift_keypad.kl:system/usr/keylayout/swift_keypad.kl \
 	device/lge/swift/prebuilt/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
-	device/lge/swift/prebuilt/keylayout/msm_touchscreen.kl:system/usr/keylayout/msm_touchscreen.kl \
-	device/lge/swift/prebuilt/idc/msm_touchscreen.idc:system/usr/idc/msm_touchscreen.idc \
+#	device/lge/swift/prebuilt/keylayout/swift_keypad.kl:system/usr/keylayout/swift_keypad.kl \
 
 # OpenGL
 PRODUCT_COPY_FILES += \
